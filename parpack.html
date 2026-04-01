@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ParPack™ — Skip the Scramble. Stay Organized.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #2d6a2f;
+    --green-light: #4a8c4d;
+    --green-pale: #eaf4eb;
+    --green-mid: #3a7d3d;
+    --black: #111111;
+    --white: #ffffff;
+    --cream: #f8f6f1;
+    --gray: #6b7280;
+    --gray-light: #e5e7eb;
+    --grass: #1e4d20;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px;
+    color: var(--green);
+  }
+  .nav-logo span { color: var(--black); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    text-decoration: none; color: var(--black);
+    font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green); color: var(--white);
+    border: none; padding: 10px 24px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: background .2s;
+  }
+  .nav-cta:hover { background: var(--grass); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--cream);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 6px;
+    background: linear-gradient(90deg, var(--green), var(--green-light), var(--green));
+  }
+  /* Grass texture stripes */
+  .hero::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(
+      175deg,
+      transparent, transparent 40px,
+      rgba(45,106,47,0.025) 40px, rgba(45,106,47,0.025) 80px
+    );
+    pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-block;
+    background: var(--green); color: var(--white);
+    font-size: 11px; font-weight: 600; letter-spacing: 2px;
+    padding: 6px 14px; text-transform: uppercase;
+    margin-bottom: 28px;
+  }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 108px);
+    line-height: 0.95;
+    color: var(--black);
+    margin-bottom: 24px;
+  }
+  .hero-headline .green { color: var(--green); }
+  .hero-sub {
+    font-size: 18px; font-weight: 300; color: var(--gray);
+    line-height: 1.65; max-width: 440px; margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green); color: var(--white);
+    border: none; padding: 16px 36px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: background .2s, transform .15s;
+  }
+  .btn-primary:hover { background: var(--grass); transform: translateY(-1px); }
+  .btn-outline {
+    background: transparent; color: var(--black);
+    border: 2px solid var(--black); padding: 14px 36px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; letter-spacing: 0.5px;
+    transition: all .2s;
+  }
+  .btn-outline:hover { background: var(--black); color: var(--white); }
+  .hero-visual {
+    position: relative; z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-card {
+    background: var(--white);
+    padding: 48px 40px;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.12);
+    position: relative; max-width: 420px; width: 100%;
+    animation: float 4s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .hero-card-tag {
+    position: absolute; top: -14px; right: 28px;
+    background: var(--green); color: var(--white);
+    font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+    padding: 6px 16px; text-transform: uppercase;
+  }
+  .product-graphic {
+    width: 100%; height: 200px;
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 24px; position: relative; overflow: hidden;
+  }
+  .backpack-svg { width: 140px; height: 140px; }
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; letter-spacing: 2px; margin-bottom: 8px;
+  }
+  .product-desc { font-size: 13px; color: var(--gray); line-height: 1.5; margin-bottom: 20px; }
+  .product-price {
+    font-size: 28px; font-weight: 700; color: var(--green);
+    margin-bottom: 16px;
+  }
+  .product-price span { font-size: 14px; color: var(--gray); font-weight: 400; margin-left: 6px; }
+  .add-to-cart {
+    width: 100%; background: var(--green); color: var(--white);
+    border: none; padding: 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+    cursor: pointer; transition: background .2s;
+  }
+  .add-to-cart:hover { background: var(--grass); }
+
+  /* ── HOW IT WORKS ── */
+  .how {
+    padding: 120px 48px;
+    background: var(--white);
+  }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    line-height: 1; margin-bottom: 64px;
+  }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .step {
+    background: var(--cream); padding: 48px 36px;
+    position: relative; transition: background .3s;
+  }
+  .step:hover { background: var(--green-pale); }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px; color: rgba(45,106,47,0.12);
+    line-height: 1; margin-bottom: 16px;
+  }
+  .step-icon {
+    width: 48px; height: 48px; margin-bottom: 20px;
+    background: var(--green); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white); font-size: 20px;
+  }
+  .step h3 { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+  .step p { font-size: 14px; color: var(--gray); line-height: 1.65; }
+
+  /* ── FEATURES ── */
+  .features {
+    background: var(--black); color: var(--white);
+    padding: 120px 48px;
+  }
+  .features .section-label { color: var(--green-light); }
+  .features .section-title { color: var(--white); }
+  .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .feature-card {
+    background: rgba(255,255,255,0.04); padding: 40px 36px;
+    border-left: 3px solid transparent;
+    transition: all .3s;
+  }
+  .feature-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-left-color: var(--green-light);
+  }
+  .feature-icon { font-size: 28px; margin-bottom: 16px; }
+  .feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+  .feature-card p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.65; }
+
+  /* ── WHY PARPACK ── */
+  .why {
+    background: var(--green);
+    color: var(--white);
+    padding: 120px 48px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .why::before {
+    content: 'PARPACK';
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(100px, 20vw, 240px);
+    color: rgba(255,255,255,0.05);
+    white-space: nowrap; pointer-events: none;
+  }
+  .why .section-label { color: rgba(255,255,255,0.6); }
+  .why-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 6vw, 80px);
+    line-height: 1; margin-bottom: 24px;
+    position: relative; z-index: 1;
+  }
+  .why p {
+    font-size: 18px; font-weight: 300; opacity: 0.85;
+    max-width: 560px; margin: 0 auto 48px;
+    line-height: 1.7; position: relative; z-index: 1;
+  }
+  .why .btn-outline {
+    border-color: var(--white); color: var(--white);
+    position: relative; z-index: 1;
+  }
+  .why .btn-outline:hover { background: var(--white); color: var(--green); }
+
+  /* ── USE CASES ── */
+  .usecases { padding: 120px 48px; background: var(--cream); }
+  .cases-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px; }
+  .case {
+    background: var(--white); padding: 36px 24px;
+    text-align: center; transition: all .25s;
+    cursor: default;
+  }
+  .case:hover { background: var(--green); color: var(--white); transform: translateY(-4px); }
+  .case:hover .case-icon { background: rgba(255,255,255,0.2); }
+  .case:hover p { color: rgba(255,255,255,0.75); }
+  .case-icon {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: var(--green-pale); display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 16px; font-size: 24px;
+    transition: background .25s;
+  }
+  .case h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .case p { font-size: 13px; color: var(--gray); line-height: 1.5; }
+
+  /* ── FOUNDER ── */
+  .founder { padding: 120px 48px; background: var(--white); }
+  .founder-inner {
+    max-width: 800px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 2fr; gap: 64px;
+    align-items: start;
+  }
+  .founder-visual {
+    background: var(--cream); padding: 40px 32px;
+    text-align: center;
+  }
+  .founder-avatar {
+    width: 80px; height: 80px; border-radius: 50%;
+    background: var(--green); display: flex; align-items: center;
+    justify-content: center; margin: 0 auto 16px; font-size: 32px;
+  }
+  .founder-visual h4 { font-weight: 600; margin-bottom: 4px; }
+  .founder-visual p { font-size: 13px; color: var(--gray); }
+  .founder-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    line-height: 1.5; color: var(--black);
+    margin-bottom: 24px;
+  }
+  .founder-quote::before { content: '\201C'; color: var(--green); }
+  .founder-quote::after { content: '\201D'; color: var(--green); }
+  .founder-body { font-size: 15px; color: var(--gray); line-height: 1.75; }
+
+  /* ── CHECKOUT ── */
+  .checkout { padding: 120px 48px; background: var(--cream); }
+  .checkout-inner {
+    max-width: 960px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    align-items: start;
+  }
+  .order-summary {
+    background: var(--white); padding: 36px;
+  }
+  .order-summary h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+  .order-item {
+    display: flex; justify-content: space-between;
+    align-items: center; padding: 16px 0;
+    border-bottom: 1px solid var(--gray-light);
+  }
+  .order-item:last-child { border-bottom: none; }
+  .item-left { display: flex; align-items: center; gap: 14px; }
+  .item-thumb {
+    width: 48px; height: 48px;
+    background: var(--green-pale); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .item-name { font-weight: 600; font-size: 15px; }
+  .item-variant { font-size: 12px; color: var(--gray); }
+  .item-price { font-weight: 700; font-size: 16px; }
+  .qty-control { display: flex; align-items: center; gap: 12px; }
+  .qty-btn {
+    width: 28px; height: 28px; background: var(--cream);
+    border: 1px solid var(--gray-light); cursor: pointer;
+    font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: all .2s;
+  }
+  .qty-btn:hover { background: var(--green); color: var(--white); border-color: var(--green); }
+  .qty-num { font-weight: 600; min-width: 20px; text-align: center; }
+  .order-totals { margin-top: 20px; }
+  .total-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: var(--gray); }
+  .total-row.grand { font-size: 18px; font-weight: 700; color: var(--black); border-top: 2px solid var(--black); padding-top: 16px; margin-top: 8px; }
+  .total-row.grand span:last-child { color: var(--green); }
+
+  /* Checkout Form */
+  .checkout-form { }
+  .checkout-form h3 { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+  .form-section { margin-bottom: 28px; }
+  .form-section-title { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .form-group label { font-size: 12px; font-weight: 600; letter-spacing: 0.5px; color: var(--black); }
+  .form-group input, .form-group select {
+    border: 1.5px solid var(--gray-light);
+    padding: 12px 14px;
+    font-family: 'DM Sans', sans-serif; font-size: 14px;
+    background: var(--white); outline: none;
+    transition: border-color .2s;
+    width: 100%;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--green); }
+  .card-row { display: flex; gap: 12px; }
+  .card-row .form-group:first-child { flex: 2; }
+  .card-row .form-group:last-child { flex: 1; }
+  .card-icons { display: flex; gap: 8px; margin-bottom: 12px; }
+  .card-icon {
+    background: var(--white); border: 1px solid var(--gray-light);
+    padding: 4px 8px; font-size: 11px; font-weight: 700; color: var(--gray); border-radius: 2px;
+  }
+  .place-order {
+    width: 100%; background: var(--green); color: var(--white);
+    border: none; padding: 18px;
+    font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 700;
+    cursor: pointer; letter-spacing: 0.5px; transition: background .2s;
+    margin-top: 8px;
+  }
+  .place-order:hover { background: var(--grass); }
+  .secure-badge { display: flex; align-items: center; gap: 8px; margin-top: 12px; justify-content: center; font-size: 12px; color: var(--gray); }
+
+  /* Success */
+  .success-modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 200;
+    align-items: center; justify-content: center;
+  }
+  .success-modal.active { display: flex; }
+  .success-box {
+    background: var(--white); padding: 64px 48px;
+    text-align: center; max-width: 440px; width: 90%;
+    animation: popIn .35s cubic-bezier(.175,.885,.32,1.275);
+  }
+  @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .success-icon { font-size: 56px; margin-bottom: 20px; }
+  .success-box h2 { font-family: 'Bebas Neue', sans-serif; font-size: 40px; color: var(--green); margin-bottom: 12px; }
+  .success-box p { color: var(--gray); margin-bottom: 28px; line-height: 1.6; }
+  .close-modal { background: var(--green); color: var(--white); border: none; padding: 12px 32px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); color: var(--white);
+    padding: 64px 48px 32px;
+  }
+  .footer-top { display: flex; justify-content: space-between; align-items: start; margin-bottom: 48px; flex-wrap: wrap; gap: 32px; }
+  .footer-brand .nav-logo { margin-bottom: 12px; display: block; }
+  .footer-brand p { font-size: 13px; color: rgba(255,255,255,0.45); max-width: 260px; line-height: 1.6; }
+  .footer-links h4 { font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+  .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 14px; transition: color .2s; }
+  .footer-links a:hover { color: var(--white); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px; display: flex; justify-content: space-between; font-size: 12px; color: rgba(255,255,255,0.35); flex-wrap: wrap; gap: 12px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 48px; }
+    .steps { grid-template-columns: 1fr; gap: 2px; }
+    .features-grid { grid-template-columns: 1fr; }
+    .cases-grid { grid-template-columns: repeat(2, 1fr); }
+    .checkout-inner { grid-template-columns: 1fr; }
+    .founder-inner { grid-template-columns: 1fr; gap: 32px; }
+    .how, .features, .why, .usecases, .founder, .checkout { padding: 80px 24px; }
+    .footer-top { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Par<span>Pack</span>™</div>
+  <ul class="nav-links">
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#story">Our Story</a></li>
+    <li><a href="#checkout">Shop</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Order Now</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">New Drop — Spring 2026</div>
+    <h1 class="hero-headline">
+      Skip<br>the<br><span class="green">Scramble.</span>
+    </h1>
+    <p class="hero-sub">A detachable backpack that attaches to your golf bag — upgrading your setup with smarter storage and everyday convenience.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+      <button class="btn-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See How It Works</button>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <div class="hero-card-tag">New Release</div>
+      <div class="product-graphic">
+        <!-- Backpack SVG illustration -->
+        <svg class="backpack-svg" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Bag body -->
+          <rect x="30" y="35" width="80" height="85" rx="12" fill="#2d6a2f"/>
+          <rect x="38" y="43" width="64" height="60" rx="8" fill="#3a7d3d"/>
+          <!-- Top handle -->
+          <rect x="58" y="24" width="24" height="14" rx="7" fill="#1e4d20"/>
+          <!-- Main zipper line -->
+          <path d="M40 75 Q70 70 100 75" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-linecap="round"/>
+          <!-- Insulated pocket -->
+          <rect x="38" y="95" width="64" height="20" rx="6" fill="#1e4d20"/>
+          <path d="M48 105 H92" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Straps -->
+          <rect x="50" y="118" width="10" height="20" rx="5" fill="#1e4d20"/>
+          <rect x="80" y="118" width="10" height="20" rx="5" fill="#1e4d20"/>
+          <!-- Side pocket -->
+          <rect x="24" y="55" width="8" height="36" rx="4" fill="#246226"/>
+          <!-- Logo -->
+          <text x="70" y="65" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="rgba(255,255,255,0.6)">PARPACK</text>
+          <!-- Attachment clips -->
+          <circle cx="48" cy="40" r="4" fill="#f5f5f5" opacity="0.6"/>
+          <circle cx="92" cy="40" r="4" fill="#f5f5f5" opacity="0.6"/>
+        </svg>
+      </div>
+      <div class="product-name">ParPack™ Original</div>
+      <div class="product-desc">Detachable golf backpack — attaches to any golf bag in seconds.</div>
+      <div class="product-price">$79.99 <span>Free shipping</span></div>
+      <button class="add-to-cart" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Add to Cart</button>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-label">Simple by Design</div>
+  <h2 class="section-title">How It Works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-icon">🎒</div>
+      <h3>Attach to Your Bag</h3>
+      <p>Velcro straps secure ParPack to virtually any golf bag in under 10 seconds. Quick attach, quick release — zero fuss.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-icon">📦</div>
+      <h3>Stay Organized</h3>
+      <p>Main compartment, insulated snack pocket, and small-item pockets keep everything in its place throughout your round.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-icon">🚗</div>
+      <h3>Detach and Go</h3>
+      <p>When the round ends, remove ParPack in seconds and use it as a regular backpack — at the bar, the gym, or anywhere else.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-label">What's Inside</div>
+  <h2 class="section-title">Built for Golfers.<br>Ready for Real Life.</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Attaches in Seconds</h3>
+      <p>Velcro straps are adjustable to fit any golf bag. No tools, no extra hardware — just clip and go.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🧊</div>
+      <h3>Insulated Snack Pocket</h3>
+      <p>Keep your drinks cold and snacks fresh all 18 holes. The insulated bottom pocket is a game-changer.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🪶</div>
+      <h3>Lightweight & Durable</h3>
+      <p>Designed to add zero fatigue to your round. Water-resistant fabric handles the elements on and off the course.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📱</div>
+      <h3>Smart Small-Item Storage</h3>
+      <p>Dedicated pockets for your phone, wallet, keys, tees, and anything else you're always digging for.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔄</div>
+      <h3>Dual Functionality</h3>
+      <p>On the course it's your golf organizer. Off the course it's your everyday backpack. One bag, everywhere.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛍️</div>
+      <h3>No New Bag Needed</h3>
+      <p>Don't replace what works. ParPack upgrades your existing golf bag instead of making it obsolete.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY PARPACK -->
+<section class="why">
+  <div class="section-label">The Real Reason</div>
+  <h2 class="why-headline">Because Your Golf Bag<br>Wasn't Designed for Real Life.</h2>
+  <p>Golfers are always scrambling — digging for their phone, hunting for snacks, stashing gear they can't reach. ParPack is the upgrade your bag deserves.</p>
+  <button class="btn-outline" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Get ParPack →</button>
+</section>
+
+<!-- USE CASES -->
+<section class="usecases">
+  <div class="section-label">Where You'll Use It</div>
+  <h2 class="section-title">Every Round.<br>Every Situation.</h2>
+  <div class="cases-grid">
+    <div class="case">
+      <div class="case-icon">⛳</div>
+      <h3>On the Course</h3>
+      <p>Stay organized from tee 1 to 18</p>
+    </div>
+    <div class="case">
+      <div class="case-icon">🏌️</div>
+      <h3>At the Range</h3>
+      <p>Bring everything, lose nothing</p>
+    </div>
+    <div class="case">
+      <div class="case-icon">🏆</div>
+      <h3>Tournament Days</h3>
+      <p>Look put together under pressure</p>
+    </div>
+    <div class="case">
+      <div class="case-icon">✈️</div>
+      <h3>Golf Travel</h3>
+      <p>Your carry-on for golf trips</p>
+    </div>
+    <div class="case">
+      <div class="case-icon">☀️</div>
+      <h3>Everyday Carry</h3>
+      <p>Detach and use it anywhere</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDER STORY -->
+<section class="founder" id="story">
+  <div class="founder-inner">
+    <div class="founder-visual">
+      <div class="founder-avatar">⛳</div>
+      <h4>The Founder</h4>
+      <p>Golfer &amp; Problem Solver</p>
+    </div>
+    <div>
+      <div class="section-label">Our Story</div>
+      <blockquote class="founder-quote">ParPack was born from a real problem: never having enough accessible storage during rounds.</blockquote>
+      <p class="founder-body">Instead of designing another golf bag — there are thousands of those — the idea was simpler: add something better to the bag you already love.<br><br>ParPack is built for golfers who are tired of scrambling. The ones who want their phone, snacks, keys, and gear within reach without wrestling with a cluttered bag. Whether you're a college player, a casual weekend golfer, or a walking course regular, the scramble is real — and ParPack ends it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section class="checkout" id="checkout">
+  <div class="section-label">Ready to Upgrade</div>
+  <h2 class="section-title" style="margin-bottom:48px">Complete Your Order</h2>
+  <div class="checkout-inner">
+
+    <!-- Order Summary -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <div class="order-item">
+        <div class="item-left">
+          <div class="item-thumb">🎒</div>
+          <div>
+            <div class="item-name">ParPack™ Original</div>
+            <div class="item-variant">Forest Green / One Size</div>
+          </div>
+        </div>
+        <div>
+          <div class="qty-control" style="margin-bottom:8px">
+            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <span class="qty-num" id="qty">1</span>
+            <button class="qty-btn" onclick="changeQty(1)">+</button>
+          </div>
+          <div class="item-price" id="item-price">$79.99</div>
+        </div>
+      </div>
+
+      <div class="order-totals">
+        <div class="total-row"><span>Subtotal</span><span id="subtotal">$79.99</span></div>
+        <div class="total-row"><span>Shipping</span><span style="color:#2d6a2f;font-weight:600">Free</span></div>
+        <div class="total-row"><span>Tax (6%)</span><span id="tax">$4.80</span></div>
+        <div class="total-row grand"><span>Total</span><span id="grand-total">$84.79</span></div>
+      </div>
+
+      <div style="margin-top:24px; background: #eaf4eb; padding: 16px; font-size:13px; color:#2d6a2f; display:flex; gap:10px; align-items:start;">
+        <span>🌿</span>
+        <span>Free shipping on all US orders. Ships within 3–5 business days.</span>
+      </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <div class="checkout-form">
+      <h3>Your Details</h3>
+
+      <div class="form-section">
+        <div class="form-section-title">Contact</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name</label>
+            <input type="text" id="fname" placeholder="Jordan">
+          </div>
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" id="lname" placeholder="Smith">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label>Phone (optional)</label>
+          <input type="tel" placeholder="(555) 000-0000">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Shipping Address</div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" id="address" placeholder="123 Fairway Drive">
+        </div>
+        <div class="form-group">
+          <label>Apt / Suite (optional)</label>
+          <input type="text" placeholder="Apt 4B">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="city" placeholder="Augusta">
+          </div>
+          <div class="form-group">
+            <label>State</label>
+            <select id="state">
+              <option value="">Select...</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+              <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+              <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+              <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+              <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+              <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+              <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+              <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+              <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+              <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+              <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+              <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+              <option>WI</option><option>WY</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>ZIP Code</label>
+          <input type="text" id="zip" placeholder="30904">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title">Payment</div>
+        <div class="card-icons">
+          <div class="card-icon">VISA</div>
+          <div class="card-icon">MC</div>
+          <div class="card-icon">AMEX</div>
+          <div class="card-icon">DISC</div>
+        </div>
+        <div class="form-group">
+          <label>Card Number</label>
+          <input type="text" id="cardnum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+        </div>
+        <div class="card-row">
+          <div class="form-group">
+            <label>Expiry</label>
+            <input type="text" id="expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="text" placeholder="•••" maxlength="4">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Name on Card</label>
+          <input type="text" placeholder="Jordan Smith">
+        </div>
+      </div>
+
+      <button class="place-order" onclick="placeOrder()">🏌️ Place Order — <span id="order-total-btn">$84.79</span></button>
+      <div class="secure-badge">🔒 Secure Checkout &nbsp;·&nbsp; SSL Encrypted &nbsp;·&nbsp; 30-Day Returns</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="nav-logo">Par<span style="color:#fff">Pack</span>™</div>
+      <p>Skip the scramble. Stay organized. The detachable backpack built for golfers.</p>
+    </div>
+    <div class="footer-links">
+      <h4>Product</h4>
+      <ul>
+        <li><a href="#how">How It Works</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#checkout">Shop</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#story">Our Story</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Returns</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Follow</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Twitter / X</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 ParPack™. All rights reserved.</span>
+    <span>Privacy Policy · Terms of Service</span>
+  </div>
+</footer>
+
+<!-- Success Modal -->
+<div class="success-modal" id="successModal">
+  <div class="success-box">
+    <div class="success-icon">🎉</div>
+    <h2>Order Placed!</h2>
+    <p>Thanks, <strong id="confirm-name">golfer</strong>! Your ParPack™ is on its way to <span id="confirm-city">you</span>. Check your email for confirmation.</p>
+    <button class="close-modal" onclick="closeModal()">Back to Home</button>
+  </div>
+</div>
+
+<script>
+  // Qty & pricing
+  let qty = 1;
+  const BASE = 79.99;
+  const TAX_RATE = 0.06;
+
+  function updatePricing() {
+    const sub = (BASE * qty).toFixed(2);
+    const tax = (BASE * qty * TAX_RATE).toFixed(2);
+    const grand = (BASE * qty * (1 + TAX_RATE)).toFixed(2);
+    document.getElementById('qty').textContent = qty;
+    document.getElementById('item-price').textContent = '$' + sub;
+    document.getElementById('subtotal').textContent = '$' + sub;
+    document.getElementById('tax').textContent = '$' + tax;
+    document.getElementById('grand-total').textContent = '$' + grand;
+    document.getElementById('order-total-btn').textContent = '$' + grand;
+  }
+
+  function changeQty(delta) {
+    qty = Math.max(1, qty + delta);
+    updatePricing();
+  }
+
+  function formatCard(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,16);
+    el.value = v.replace(/(.{4})/g,'$1 ').trim();
+  }
+
+  function formatExpiry(el) {
+    let v = el.value.replace(/\D/g,'').substring(0,4);
+    if (v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
+    el.value = v;
+  }
+
+  function placeOrder() {
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const address = document.getElementById('address').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const state = document.getElementById('state').value;
+    const zip = document.getElementById('zip').value.trim();
+    const cardnum = document.getElementById('cardnum').value.replace(/\s/g,'');
+    const expiry = document.getElementById('expiry').value.trim();
+
+    if (!fname || !email || !address || !city || !state || !zip) {
+      alert('Please fill in all shipping fields.');
+      return;
+    }
+    if (!email.includes('@')) {
+      alert('Please enter a valid email address.');
+      return;
+    }
+    if (cardnum.length < 16) {
+      alert('Please enter a valid 16-digit card number.');
+      return;
+    }
+    if (!expiry || expiry.length < 7) {
+      alert('Please enter a valid expiry date.');
+      return;
+    }
+
+    document.getElementById('confirm-name').textContent = fname;
+    document.getElementById('confirm-city').textContent = city + ', ' + state;
+    document.getElementById('successModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('successModal').classList.remove('active');
+    document.body.style.overflow = '';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
