@@ -439,9 +439,9 @@
     <li><a href="#how">How It Works</a></li>
     <li><a href="#features">Features</a></li>
     <li><a href="#story">Our Story</a></li>
-    <li><a href="#checkout">Shop</a></li>
+    <li><a href="#waitlist">Waitlist</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Order Now</button>
+  <button class="nav-cta" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
 </nav>
 
 <!-- HERO -->
@@ -453,7 +453,7 @@
     </h1>
     <p class="hero-sub">A detachable backpack built for the course. Attaches to your golf bag in seconds so you can stay organized from the first tee to the last hole.</p>
     <div class="hero-actions">
-      <button class="btn-primary" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Shop Now →</button>
+      <button class="btn-primary" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist →</button>
       <button class="btn-outline" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">See How It Works</button>
     </div>
   </div>
@@ -467,7 +467,7 @@
       <div class="product-name">ParPack™ Original</div>
       <div class="product-desc">Detachable golf backpack — attaches to any golf bag in seconds.</div>
       <div class="product-price">$99.99 <span>+ $9.99 shipping</span></div>
-      <button class="add-to-cart" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Add to Cart</button>
+      <button class="add-to-cart" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
     </div>
   </div>
 </section>
@@ -541,7 +541,7 @@
   <div class="section-label">The Real Reason</div>
   <h2 class="why-headline">Because Your Golf Bag<br>Wasn't Designed for Real Life.</h2>
   <p>Golfers are always scrambling — digging for their phone, hunting for snacks, stashing gear they can't reach. ParPack is the upgrade your bag deserves.</p>
-  <button class="btn-outline" onclick="document.getElementById('checkout').scrollIntoView({behavior:'smooth'})">Get ParPack →</button>
+  <button class="btn-outline" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist →</button>
 </section>
 
 <!-- USE CASES -->
@@ -593,144 +593,14 @@
   </div>
 </section>
 
-<!-- CHECKOUT -->
-<section class="checkout" id="checkout">
-  <div class="section-label">Ready to Upgrade</div>
-  <h2 class="section-title" style="margin-bottom:48px">Complete Your Order</h2>
-  <div class="checkout-inner">
-
-    <!-- Order Summary -->
-    <div class="order-summary">
-      <h3>Order Summary</h3>
-      <div class="order-item">
-        <div class="item-left">
-          <div class="item-thumb">🎒</div>
-          <div>
-            <div class="item-name">ParPack™ Original</div>
-            <div class="item-variant">Black / One Size</div>
-          </div>
-        </div>
-        <div>
-          <div class="qty-control" style="margin-bottom:8px">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
-            <span class="qty-num" id="qty">1</span>
-            <button class="qty-btn" onclick="changeQty(1)">+</button>
-          </div>
-          <div class="item-price" id="item-price">$99.99</div>
-        </div>
-      </div>
-
-      <div class="order-totals">
-        <div class="total-row"><span>Subtotal</span><span id="subtotal">$99.99</span></div>
-        <div class="total-row"><span>Shipping</span><span>$9.99</span></div>
-        <div class="total-row"><span>Tax (6%)</span><span id="tax">$6.00</span></div>
-        <div class="total-row grand"><span>Total</span><span id="grand-total">$115.97</span></div>
-      </div>
-
-      <div style="margin-top:24px; background: #eaf4eb; padding: 16px; font-size:13px; color:#2d6a2f; display:flex; gap:10px; align-items:start;">
-        <span>🌿</span>
-        <span>Shipping: $9.99 · Ships within 3–5 business days.</span>
-      </div>
-    </div>
-
-    <!-- Checkout Form -->
-    <div class="checkout-form">
-      <h3>Your Details</h3>
-
-      <div class="form-section">
-        <div class="form-section-title">Contact</div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>First Name</label>
-            <input type="text" id="fname" placeholder="Jordan">
-          </div>
-          <div class="form-group">
-            <label>Last Name</label>
-            <input type="text" id="lname" placeholder="Smith">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="email" placeholder="you@email.com">
-        </div>
-        <div class="form-group">
-          <label>Phone (optional)</label>
-          <input type="tel" placeholder="(555) 000-0000">
-        </div>
-      </div>
-
-      <div class="form-section">
-        <div class="form-section-title">Shipping Address</div>
-        <div class="form-group">
-          <label>Address</label>
-          <input type="text" id="address" placeholder="123 Fairway Drive">
-        </div>
-        <div class="form-group">
-          <label>Apt / Suite (optional)</label>
-          <input type="text" placeholder="Apt 4B">
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label>City</label>
-            <input type="text" id="city" placeholder="Augusta">
-          </div>
-          <div class="form-group">
-            <label>State</label>
-            <select id="state">
-              <option value="">Select...</option>
-              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
-              <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
-              <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
-              <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
-              <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
-              <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
-              <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
-              <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
-              <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
-              <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
-              <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
-              <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
-              <option>WI</option><option>WY</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>ZIP Code</label>
-          <input type="text" id="zip" placeholder="30904">
-        </div>
-      </div>
-
-      <div class="form-section">
-        <div class="form-section-title">Payment</div>
-        <div class="card-icons">
-          <div class="card-icon">VISA</div>
-          <div class="card-icon">MC</div>
-          <div class="card-icon">AMEX</div>
-          <div class="card-icon">DISC</div>
-        </div>
-        <div class="form-group">
-          <label>Card Number</label>
-          <input type="text" id="cardnum" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
-        </div>
-        <div class="card-row">
-          <div class="form-group">
-            <label>Expiry</label>
-            <input type="text" id="expiry" placeholder="MM / YY" maxlength="7" oninput="formatExpiry(this)">
-          </div>
-          <div class="form-group">
-            <label>CVV</label>
-            <input type="text" placeholder="•••" maxlength="4">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Name on Card</label>
-          <input type="text" placeholder="Jordan Smith">
-        </div>
-      </div>
-
-      <button class="place-order" onclick="placeOrder()">🏌️ Place Order — <span id="order-total-btn">$115.97</span></button>
-      <div class="secure-badge">🔒 Secure Checkout &nbsp;·&nbsp; SSL Encrypted &nbsp;·&nbsp; 30-Day Returns</div>
-    </div>
+<!-- WAITLIST -->
+<section class="checkout" id="waitlist">
+  <div style="max-width:560px; margin:0 auto; text-align:center;">
+    <div class="section-label">Be First in Line</div>
+    <h2 class="section-title" style="margin-bottom:16px">Join the Waitlist</h2>
+    <p style="color:#6b7280; font-size:16px; margin-bottom:48px; line-height:1.6;">ParPack is coming soon. Drop your name and number and we'll reach out the moment it's ready.</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYyVeAX9XSCILnhtt1qUfyhSN45StxKqAZFCeQvrOcmXFhOg/viewform" target="_blank" style="display:inline-block; background:#2d6a2f; color:#fff; text-decoration:none; padding:20px 48px; font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; letter-spacing:0.5px;">⛳ Join the Waitlist</a>
+    <p style="font-size:12px; color:#9ca3af; margin-top:16px;">No spam. Just a heads up when ParPack drops.</p>
   </div>
 </section>
 
@@ -746,7 +616,7 @@
       <ul>
         <li><a href="#how">How It Works</a></li>
         <li><a href="#features">Features</a></li>
-        <li><a href="#checkout">Shop</a></li>
+        <li><a href="#waitlist">Waitlist</a></li>
       </ul>
     </div>
     <div class="footer-links">
@@ -776,77 +646,21 @@
 <div class="success-modal" id="successModal">
   <div class="success-box">
     <div class="success-icon">🎉</div>
-    <h2>Order Placed!</h2>
-    <p>Thanks, <strong id="confirm-name">golfer</strong>! Your ParPack™ is on its way to <span id="confirm-city">you</span>. Check your email for confirmation.</p>
+    <h2>You're on the List!</h2>
+    <p>Thanks, <strong id="confirm-name"></strong>! We'll text you the moment ParPack is ready to ship.</p>
     <button class="close-modal" onclick="closeModal()">Back to Home</button>
   </div>
 </div>
 
 <script>
-  // Qty & pricing
-  let qty = 1;
-  const BASE = 99.99;
-  const TAX_RATE = 0.06;
-  const SHIPPING = 9.99;
+  function joinWaitlist() {
+    const name = document.getElementById('wl-name').value.trim();
+    const phone = document.getElementById('wl-phone').value.trim();
 
-  function updatePricing() {
-    const sub = (BASE * qty).toFixed(2);
-    const tax = (BASE * qty * TAX_RATE).toFixed(2);
-    const grand = (BASE * qty * (1 + TAX_RATE) + SHIPPING).toFixed(2);
-    document.getElementById('qty').textContent = qty;
-    document.getElementById('item-price').textContent = '$' + sub;
-    document.getElementById('subtotal').textContent = '$' + sub;
-    document.getElementById('tax').textContent = '$' + tax;
-    document.getElementById('grand-total').textContent = '$' + grand;
-    document.getElementById('order-total-btn').textContent = '$' + grand;
-    // shipping is always $9.99, already factored into grand
-  }
+    if (!name) { alert('Please enter your name.'); return; }
+    if (!phone) { alert('Please enter your phone number.'); return; }
 
-  function changeQty(delta) {
-    qty = Math.max(1, qty + delta);
-    updatePricing();
-  }
-
-  function formatCard(el) {
-    let v = el.value.replace(/\D/g,'').substring(0,16);
-    el.value = v.replace(/(.{4})/g,'$1 ').trim();
-  }
-
-  function formatExpiry(el) {
-    let v = el.value.replace(/\D/g,'').substring(0,4);
-    if (v.length >= 2) v = v.substring(0,2) + ' / ' + v.substring(2);
-    el.value = v;
-  }
-
-  function placeOrder() {
-    const fname = document.getElementById('fname').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const address = document.getElementById('address').value.trim();
-    const city = document.getElementById('city').value.trim();
-    const state = document.getElementById('state').value;
-    const zip = document.getElementById('zip').value.trim();
-    const cardnum = document.getElementById('cardnum').value.replace(/\s/g,'');
-    const expiry = document.getElementById('expiry').value.trim();
-
-    if (!fname || !email || !address || !city || !state || !zip) {
-      alert('Please fill in all shipping fields.');
-      return;
-    }
-    if (!email.includes('@')) {
-      alert('Please enter a valid email address.');
-      return;
-    }
-    if (cardnum.length < 16) {
-      alert('Please enter a valid 16-digit card number.');
-      return;
-    }
-    if (!expiry || expiry.length < 7) {
-      alert('Please enter a valid expiry date.');
-      return;
-    }
-
-    document.getElementById('confirm-name').textContent = fname;
-    document.getElementById('confirm-city').textContent = city + ', ' + state;
+    document.getElementById('confirm-name').textContent = name;
     document.getElementById('successModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   }
