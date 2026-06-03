@@ -33,7 +33,7 @@
 
   /* ── NAV ── */
   nav {
-    position: fixed; top: 0; width: 100%; z-index: 100;
+    position: fixed; top: 40px; width: 100%; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 18px 48px;
     background: rgba(255,255,255,0.95);
@@ -430,7 +430,11 @@
   }
 </style>
 </head>
-<body>
+<body><!-- COMING SOON BANNER -->
+<div style="background:#2d6a2f; color:#fff; text-align:center; padding:12px; font-family:'DM Sans',sans-serif; font-size:14px; font-weight:600; letter-spacing:1px; position:fixed; top:0; width:100%; z-index:200;">
+  🏌️ COMING SOON — Summer 2026 &nbsp;·&nbsp; <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYyVeAX9XSCILnhtt1qUfyhSN45StxKqAZFCeQvrOcmXFhOg/viewform" target="_blank" style="color:#fff; text-decoration:underline;">Join the Waitlist</a>
+</div>
+
 
 <!-- NAV -->
 <nav>
@@ -466,7 +470,7 @@
       </div>
       <div class="product-name">ParPack™ Original</div>
       <div class="product-desc">Detachable golf backpack — attaches to any golf bag in seconds.</div>
-      <div class="product-price">$99.99 <span>+ $9.99 shipping</span></div>
+      <div class="product-price">$99.99 <span>+ shipping</span></div>
       <button class="add-to-cart" onclick="document.getElementById('waitlist').scrollIntoView({behavior:'smooth'})">Join Waitlist</button>
     </div>
   </div>
@@ -601,6 +605,52 @@
     <p style="color:#6b7280; font-size:16px; margin-bottom:48px; line-height:1.6;">ParPack is coming soon. Drop your name and number and we'll reach out the moment it's ready.</p>
     <a href="https://docs.google.com/forms/d/e/1FAIpQLSdYyVeAX9XSCILnhtt1qUfyhSN45StxKqAZFCeQvrOcmXFhOg/viewform" target="_blank" style="display:inline-block; background:#2d6a2f; color:#fff; text-decoration:none; padding:20px 48px; font-family:'DM Sans',sans-serif; font-size:17px; font-weight:700; letter-spacing:0.5px;">⛳ Join the Waitlist</a>
     <p style="font-size:12px; color:#9ca3af; margin-top:16px;">No spam. Just a heads up when ParPack drops.</p>
+  </div>
+</section>
+
+<!-- SHOP - HIDDEN UNTIL LAUNCH -->
+<section style="padding:120px 48px; background:#fff; display:none;" id="shop-section">
+  <div style="max-width:900px; margin:0 auto;">
+    <div class="section-label">Shop</div>
+    <h2 class="section-title" style="margin-bottom:48px">Get Your ParPack</h2>
+    <!-- Coming Soon Overlay -->
+    <div style="position:relative;">
+      <div style="position:absolute; inset:0; background:rgba(255,255,255,0.92); z-index:10; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;">
+        <div style="font-family:'Bebas Neue',sans-serif; font-size:48px; color:#2d6a2f; margin-bottom:12px;">Coming Soon</div>
+        <p style="font-size:16px; color:#6b7280;">Shop opens Summer 2026</p>
+      </div>
+      <!-- Shopify Buy Button (hidden behind overlay) -->
+      <div id='product-component-1780504225034'></div>
+      <script type="text/javascript">
+      (function () {
+        var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+        if (window.ShopifyBuy) {
+          if (window.ShopifyBuy.UI) { ShopifyBuyInit(); } else { loadScript(); }
+        } else { loadScript(); }
+        function loadScript() {
+          var script = document.createElement('script');
+          script.async = true;
+          script.src = scriptURL;
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(script);
+          script.onload = ShopifyBuyInit;
+        }
+        function ShopifyBuyInit() {
+          var client = ShopifyBuy.buildClient({
+            domain: '2di1ac-gf.myshopify.com',
+            storefrontAccessToken: 'd491bfac4b4e187de4fe2c7e7cdbac7d',
+          });
+          ShopifyBuy.UI.onReady(client).then(function (ui) {
+            ui.createComponent('product', {
+              id: '10367792513341',
+              node: document.getElementById('product-component-1780504225034'),
+              moneyFormat: '%24%7B%7Bamount%7D%7D',
+              options: {"product":{"styles":{"product":{"@media (min-width: 601px)":{"max-width":"100%","margin-left":"0","margin-bottom":"50px"},"text-align":"left"},"title":{"font-size":"26px","color":"#000000"},"button":{"border-radius":"40px","padding-left":"100px","padding-right":"100px"},"price":{"font-size":"18px"},"compareAt":{"font-size":"15.3px"},"unitPrice":{"font-size":"15.3px"}},"layout":"horizontal","contents":{"img":false,"imgWithCarousel":true,"description":true},"width":"100%","text":{"button":"Add to cart"}},"cart":{"styles":{"button":{"border-radius":"40px"},"title":{"color":"#000000"}},"text":{"total":"Subtotal","button":"Checkout"},"popup":false}}
+            });
+          });
+        }
+      })();
+      </script>
+    </div>
   </div>
 </section>
 
